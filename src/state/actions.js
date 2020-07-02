@@ -9,9 +9,10 @@ export const fetchGoods = () => {
         return fetch(`${url}/goods.json`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'json/text'
+                'Content-Type': 'application/json'
             }
         }).then(response => response.json())
-            .then(data => dispatch({type: FETCH_GOODS, payload: data}))
+            .then(data => Object.keys(data).map(item => data[item]))
+            .then(arr => dispatch({type: FETCH_GOODS, payload: arr}))
     }
 }

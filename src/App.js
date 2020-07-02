@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import {Navbar} from "./components/Navbar";
 import {LeftMenu} from "./components/LeftMenu";
-import {Home} from "./pages/Home";
+import Home from "./pages/Home";
 import {Good} from "./pages/Good";
 import {Cart} from "./pages/Cart";
 import {Login} from "./pages/Login";

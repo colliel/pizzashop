@@ -2,11 +2,12 @@ import React, {useEffect} from "react";
 import {Goods} from "../components/Goods";
 import {Loader} from "../components/Loader"
 import {connect} from "react-redux"
+import {fetchGoods} from "../state/actions";
 
-const Home = ({loading, goods}) => {
+const Home = ({loading, goods, dispatch}) => {
 
     useEffect(() => {
-        fetchGoods()
+        dispatch(fetchGoods())
         // eslint-disable-next-line
     }, [])
 
