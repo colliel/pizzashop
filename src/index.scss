@@ -1,0 +1,220 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+ul.kid-menu{
+  display: block !important;
+}
+.menu {
+  width: auto;
+  height: auto;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  background: #FBFBFC;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+.menu > li > a {
+  width: 100%;
+  line-height: 3.5em;
+  text-indent: 1.2em;
+  display: block;
+  position: relative;
+  color: #000;
+  font-size: 1.1em;
+  text-decoration:none;
+  border-bottom: 1px solid #ddd;
+  font-weight:700;
+}
+.menu ul li a {
+  width: 100%;
+  display: block;
+  position: relative;
+  font-size:1.1em;
+  font-weight: 400;
+  color: #000;
+  text-decoration:none;
+  border-bottom: 1px solid #ddd;
+  font-weight:700;
+  line-height: 3.5em;
+  text-indent: 1.2em;
+}
+.menu ul li a:hover{
+  background: #1DBAA5;
+}
+.menu > li > a:hover, .menu > li > a.active {
+  background:#fff;
+}
+.menu ul.kid-menu li a{
+  border-bottom: none;
+}
+ul.kid-menu{
+  padding: 0;
+  margin: 0;
+}
+ul.kid-menu li{
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.kid-menu li.menu-kid-left{
+  border-bottom:none;
+}
+ul.cute li{
+  background: #fff;
+}
+.arrow-img {
+  padding: 0em 0em 0 6.5em;
+}
+.img-arrow{
+  padding: 0 0 0 8em;
+}
+.img-left-arrow{
+  padding: 0 0 0 5.5em;
+}
+/*--menu--*/
+
+h3.cate {
+  color: #fff;
+  font-size: 1.7em;
+  padding: 0.6em ;
+  background: #000;
+  margin: 0;
+}
+
+.top-nav{
+  border: 1px solid #ddd;
+}
+
+.bottom-header {
+  border-bottom: 1px solid #ddd;
+  padding: 0.7em 0 1em;
+}
+.header-bottom-left{
+  float: left;
+  width: 55%;
+}
+
+.logo{
+  float:left;
+  width: 27%;
+  margin-top:9px;
+}
+.header-bottom-right{
+  float: right;
+  width: 37%;
+  text-align: center;
+  padding-top:1.7em;
+}
+.account,.cart{
+  float:left;
+  width:40%;
+}
+
+.cart{
+  width:24%;
+}
+.account a span{
+  background: url(./images/img-sprite.png) -117px -30px;
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.account a,.cart a ,ul.login li a {
+  text-decoration:none;
+  font-size: 1em;
+  color: #000;
+}
+.cart a span{
+  background: url(./images/img-sprite.png) -172px -28px;
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+ul.login{
+  float:left;
+  width:36%;
+  margin:0;
+}
+ul.login li{
+  display:inline-block;
+}
+ul.login li a span{
+  background: url(./images/img-sprite.png) -143px -29px;
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.account a:hover,.cart a:hover,ul.login li a:hover{
+  color: #1DBAA5;
+}
+
+.chain{
+  margin: 0 auto;
+  padding: 3em 0;
+}
+
+.grid-chain-bottom {
+  border-top: 1px solid #ddd;
+}
+
+.grid-chain-bottom h6{
+  margin: 0;
+  font-size: 1.3em;
+  color: #000;
+  font-weight: 700;
+  padding: 0.8em 0.5em 0;
+}
+.grid-chain-bottom h6 a:hover{
+  text-decoration:none;
+  color:#F97E76;
+}
+
+.star-price {
+  padding: 1em 0.5em;
+}
+
+span.actual {
+  color:#1DBAA5;
+  font-weight: 700;
+  font-size:1.2em;
+}
+
+a.now-get {
+  padding: 0.5em 0.6em;
+  font-size:1em;
+}
+a.now-get{
+  font-size: 1.1em;
+  color:#fff;
+  padding:0.6em 0.8em;
+  background:#323A45;
+  text-decoration: none;
+}
+a.now-get:hover{
+  background: #0D3F84;
+}
+
+a.get-cart{
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+}
