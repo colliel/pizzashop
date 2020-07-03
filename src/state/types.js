@@ -1,3 +1,4 @@
 export const FETCH_GOODS = 'GOODS/FETCH_GOODS'
-export const SHOW_LOADER = 'SHOW_LOADER'
-export const HIDE_LOADER = 'HIDE_LOADER'
+export const FETCH_GOOD = 'GOODS/FETCH_GOOD'
+export const SHOW_LOADER = 'APP/SHOW_LOADER'
+export const HIDE_LOADER = 'APP/HIDE_LOADER'

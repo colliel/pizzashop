@@ -14,6 +14,17 @@ code {
   monospace;
 }
 
+.header {
+  width: 100%;
+  padding: 0 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+a {
+  color: #000000
+}
+
 ul.kid-menu{
   display: block !important;
 }
@@ -50,12 +61,11 @@ ul {
   color: #000;
   text-decoration:none;
   border-bottom: 1px solid #ddd;
-  font-weight:700;
   line-height: 3.5em;
   text-indent: 1.2em;
 }
 .menu ul li a:hover{
-  background: #1DBAA5;
+  background: #F49B58;
 }
 .menu > li > a:hover, .menu > li > a.active {
   background:#fff;
@@ -93,7 +103,7 @@ h3.cate {
   color: #fff;
   font-size: 1.7em;
   padding: 0.6em ;
-  background: #000;
+  background: #F97E76;
   margin: 0;
 }
 
@@ -106,23 +116,19 @@ h3.cate {
   padding: 0.7em 0 1em;
 }
 .header-bottom-left{
-  float: left;
   width: 55%;
 }
 
 .logo{
-  float:left;
   width: 27%;
   margin-top:9px;
 }
 .header-bottom-right{
-  float: right;
   width: 37%;
   text-align: center;
   padding-top:1.7em;
 }
 .account,.cart{
-  float:left;
   width:40%;
 }
 
@@ -150,7 +156,6 @@ h3.cate {
 }
 
 ul.login{
-  float:left;
   width:36%;
   margin:0;
 }
@@ -170,7 +175,7 @@ ul.login li a span{
 
 .chain{
   margin: 0 auto;
-  padding: 3em 0;
+  padding-top: 2em;
 }
 
 .grid-chain-bottom {
@@ -194,7 +199,7 @@ ul.login li a span{
 }
 
 span.actual {
-  color:#1DBAA5;
+  color:#000000;
   font-weight: 700;
   font-size:1.2em;
 }
@@ -207,14 +212,65 @@ a.now-get{
   font-size: 1.1em;
   color:#fff;
   padding:0.6em 0.8em;
-  background:#323A45;
+  background:#F97E76;
   text-decoration: none;
 }
 a.now-get:hover{
-  background: #0D3F84;
+  background: #FF0000;
 }
 
 a.get-cart{
   padding: 0.4em 0.6em;
   font-size: 1em;
+}
+
+.single_top {
+  margin:3em 0;
+}
+.images_3_of_2 {
+  display: block;
+  float: left;
+  margin: 0 3.6% 0 0;
+  width: 36.2%;
+}
+.desc1 {
+  display: block;
+  float:left;
+}
+.span_3_of_2 {
+  width: 54.2%;
+  margin: 0 0em 0em 3em;
+}
+.span_3_of_2 h4{
+  font-size: 1.5em;
+  color:#000;
+  line-height: 1.5em;
+}
+.span_3_of_2 p {
+  font-size: 1em;
+  margin: 0 0 3em;
+  color: #999;
+  line-height: 1.7em;
+}
+.span_3_of_2 h6{
+  font-size: 1.4em;
+  color: #000;
+  border-bottom: 1px solid rgba(85, 85, 85, 0.15);
+  padding-bottom: 15px;
+  margin-bottom: 2%;
+}
+.span_3_of_2 p {
+  height: 121px;
+  overflow: hidden;
+}
+.cart-b{
+  margin:3% 0;
+  border-top:1px solid rgba(85, 85, 85, 0.15);
+  border-bottom: 1px solid rgba(85, 85, 85, 0.15);
+  padding:1em 0;
+}
+.left-n{
+  font-size:1.8em;
+  float:left;
+  color:#F97E76;
 }
