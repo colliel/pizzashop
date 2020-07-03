@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from 'react-router-dom'
-import {CartTop} from "./CartTop";
+import CartTop from "./CartTop";
 
 export const Navbar = () => {
     return(

@@ -14,9 +14,13 @@ export const fetchGoods = () => {
             }
         }).then(response => response.json())
             .then(data => Object.keys(data).map(item => {
+                console.log(data)
                 return {...data[item], hashId: item}
             }))
-            .then(arr => dispatch({type: FETCH_GOODS, payload: arr}))
+            .then(arr => {
+                console.log(arr)
+                return dispatch({type: FETCH_GOODS, payload: arr})
+            })
             .then(() => dispatch({type: HIDE_LOADER}))
     }
 }

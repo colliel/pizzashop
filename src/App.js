@@ -4,7 +4,7 @@ import {Navbar} from "./components/Navbar";
 import {LeftMenu} from "./components/LeftMenu";
 import Home from "./pages/Home";
 import Good from "./pages/Good";
-import {Cart} from "./pages/Cart";
+import Cart from "./pages/Cart";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register";
 
