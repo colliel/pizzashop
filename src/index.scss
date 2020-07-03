@@ -204,25 +204,19 @@ span.actual {
   font-size:1.2em;
 }
 
-a.now-get {
-  padding: 0.5em 0.6em;
-  font-size:1em;
-}
-a.now-get{
+.now-get{
   font-size: 1.1em;
   color:#fff;
   padding:0.6em 0.8em;
   background:#F97E76;
   text-decoration: none;
+  border-radius: 1.1em;
+  border: none;
 }
-a.now-get:hover{
+.now-get:hover{
   background: #FF0000;
 }
 
-a.get-cart{
-  padding: 0.4em 0.6em;
-  font-size: 1em;
-}
 
 .single_top {
   margin:3em 0;
@@ -273,4 +267,29 @@ a.get-cart{
   font-size:1.8em;
   float:left;
   color:#F97E76;
+}
+
+a.active.focus,
+a.active:focus,
+a.focus,
+a:active.focus,
+a:active:focus,
+a:focus,
+button.active.focus,
+button.active:focus,
+button.focus,
+button:active.focus,
+button:active:focus,
+button:focus,
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+  outline: 0!important;
+  outline-color: transparent!important;
+  outline-width: 0!important;
+  outline-style: none!important;
+  box-shadow: 0 0 0 0 rgba(0,123,255,0)!important;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import {NavLink} from 'react-router-dom'
+import {CartTop} from "./CartTop";
 
 export const Navbar = () => {
     return(
@@ -11,13 +12,13 @@ export const Navbar = () => {
                         </div>
                     </div>
                     <div className="header-bottom-right col-6 row">
-                        <div className="account col"><NavLink to="/login"><span> </span>YOUR ACCOUNT</NavLink></div>
-                        <ul className="login col">
+                        <div className="account col-5"><NavLink to="/login"><span> </span>YOUR ACCOUNT</NavLink></div>
+                        <ul className="login col-4">
                             <li><NavLink to="/login"><span> </span>LOGIN</NavLink></li>
-                            |
+                             &nbsp;|&nbsp;
                             <li><NavLink to="/register">SIGNUP</NavLink></li>
                         </ul>
-                        <div className="cart col"><NavLink to="/cart"><span> </span>CART</NavLink></div>
+                        <CartTop/>
                     </div>
             </div>
         </div>

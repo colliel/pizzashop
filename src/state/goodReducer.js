@@ -1,8 +1,9 @@
-import {FETCH_GOODS, FETCH_GOOD} from "./types";
+import {FETCH_GOODS, FETCH_GOOD, ADD_TO_CART} from "./types";
 
 const initialState = {
     goods: [],
-    good: {}
+    good: {},
+    cart: []
 }
 
 export const goodReducer = (state = initialState, action) => {
@@ -11,6 +12,8 @@ export const goodReducer = (state = initialState, action) => {
             return state = {...state, goods: action.payload}
         case FETCH_GOOD:
             return state = {...state, good: action.payload}
+        case ADD_TO_CART:
+            return state = {...state, cart: [...state.cart, action.payload]}
         default:
             return state
     }

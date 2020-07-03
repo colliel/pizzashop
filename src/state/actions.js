@@ -1,4 +1,4 @@
-import {FETCH_GOODS, FETCH_GOOD, SHOW_LOADER, HIDE_LOADER} from './types'
+import {FETCH_GOODS, FETCH_GOOD, SHOW_LOADER, HIDE_LOADER, ADD_TO_CART} from './types'
 
 const url = process.env.REACT_APP_BD_URL
 
@@ -30,7 +30,25 @@ export const fetchGood = (hashId) => {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json())
+            .then(data => {return {...data, hashId}})
             .then(data => dispatch({type: FETCH_GOOD, payload: data}))
             .then(() => dispatch({type: HIDE_LOADER}))
+    }
+}
+
+export const addToCart = (goodId, userId) => {
+    return dispatch => {
+        const obj = {
+            id: goodId,
+            quantity: 1
+        }
+        return fetch(`${url}/users/${userId}/cart.json`, {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(() => dispatch({type: ADD_TO_CART, payload: obj}))
     }
 }
