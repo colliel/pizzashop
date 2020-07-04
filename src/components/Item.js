@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {addToCart} from "../state/actions";
+import {checkCart} from "../state/actions";
 
 const Item = ({item, cart, handleAddToCart}) => {
     const userId = 1
@@ -10,7 +10,7 @@ const Item = ({item, cart, handleAddToCart}) => {
             <NavLink to={`/good/${item.hashId}`}><img className="chain" src={`./pizza/${item.name}.jpg`} alt={item.name}/></NavLink>
             <div className="grid-chain-bottom">
                 <h6><NavLink to={`/good/${item.hashId}`}>{item.name}</NavLink></h6>
-                <div className="star-price row">
+                <div className="star-price row align-items-center">
                     <div className="col-4">
                         <span className="actual">{item.price} $</span>
                     </div>
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    handleAddToCart: (hashId, userId) => dispatch(addToCart(hashId, userId))
+    handleAddToCart: (hashId, userId) => dispatch(checkCart(hashId, userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item)

@@ -1,17 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux"
+import {fetchCart} from "../state/actions";
 
-const CartTop = ({cart}) => {
+const CartTop = ({cart, fetchCart}) => {
+    const userId = 1
+
+    useEffect(() => {
+        fetchCart(userId)
+    }, [])
+
     return(
         <div className="cart col-3">
             <NavLink to="/cart">
                 <span> </span>
                 CART
-                {cart.length &&
-                    cart.reduce(function(sum, current){
-                        return sum + current.quantity
-                    }, 0)
+                {!!cart.length &&
+                    <strong>&nbsp;(
+                        {cart.reduce(function (sum, current) {
+                            return sum + current.quantity
+                        }, 0)}
+                    )</strong>
                 }
             </NavLink>
         </div>
@@ -24,4 +33,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CartTop)
+const mapDispatchToProps = dispatch => ({
+    fetchCart: userId => dispatch(fetchCart(userId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartTop)

@@ -1,4 +1,4 @@
-import {FETCH_GOODS, FETCH_GOOD, SHOW_LOADER, HIDE_LOADER, ADD_TO_CART} from './types'
+import {FETCH_GOODS, FETCH_GOOD, SHOW_LOADER, HIDE_LOADER, ADD_TO_CART, FETCH_CART, UPDATE_CART} from './types'
 
 const url = process.env.REACT_APP_BD_URL
 
@@ -14,11 +14,9 @@ export const fetchGoods = () => {
             }
         }).then(response => response.json())
             .then(data => Object.keys(data).map(item => {
-                console.log(data)
                 return {...data[item], hashId: item}
             }))
             .then(arr => {
-                console.log(arr)
                 return dispatch({type: FETCH_GOODS, payload: arr})
             })
             .then(() => dispatch({type: HIDE_LOADER}))
@@ -40,19 +38,113 @@ export const fetchGood = (hashId) => {
     }
 }
 
-export const addToCart = (goodId, userId) => {
+export const fetchGoodData = (goodId, userId) => {
+    return (dispatch) => {
+        return fetch(`${url}/goods/${goodId}.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => {return {name: data.name, price: data.price, goodId, userId}})
+            .then(content => dispatch(addToCartWithGoodData(content)))
+    }
+}
+
+export const addToCartWithGoodData = (content) => {
     return dispatch => {
         const obj = {
-            id: goodId,
-            quantity: 1
+            id: content.goodId,
+            quantity: 1,
+            name: content.name,
+            price: content.price
         }
-        return fetch(`${url}/users/${userId}/cart.json`, {
+        return fetch(`${url}/users/${content.userId}/cart.json`, {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json())
-            .then(() => dispatch({type: ADD_TO_CART, payload: obj}))
+            .then(data => data.name)
+            .then(name => dispatch({type: ADD_TO_CART, payload: {
+                ...obj, hashId: name
+                }}))
+    }
+}
+
+export const checkCart = (goodId, userId) => {
+    return dispatch => {
+        return fetch(`${url}/users/${userId}.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => {
+                if (data.cart) {
+                    const found = Object.keys(data.cart).find(item => data.cart[item].id === goodId)
+                    if (found) {
+
+                        return dispatch(updateCart(userId, found, data.cart[found].quantity, goodId))
+                    } else return dispatch(fetchGoodData(goodId, userId))
+                } else return dispatch(fetchGoodData(goodId, userId))
+            })
+    }
+}
+
+export const updateCart = (userId, hashId, quantity, goodId) => {
+    return dispatch => {
+        console.log(quantity)
+        return fetch(`${url}/users/${userId}/cart/${hashId}.json`,{
+            method: 'PATCH',
+            body: JSON.stringify({
+                quantity: quantity + 1
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            dispatch({type: UPDATE_CART, payload: {id: goodId, quantity: quantity + 1, hashId}})
+        })
+    }
+}
+
+export const fetchCart = (userId) => {
+    return dispatch => {
+        dispatch({type: SHOW_LOADER})
+        return fetch(`${url}/users/${userId}.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => {
+                if (data.cart) {
+                    console.log(data)
+                    return Object.keys(data.cart).map(item => {
+                        return {...data.cart[item], hashId: item}
+                    })
+                } else {
+                    return []
+                }
+            })
+            .then(arr => dispatch({type: FETCH_CART, payload: arr}))
+            .then(() => dispatch({type: HIDE_LOADER}))
+    }
+}
+
+export const deleteFromCart = (userId, obj) => {
+    return () => {
+        if(Object.keys(obj).length !== 0) {
+            return fetch(`${url}/users/${userId}/cart/${obj.hashId}.json`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => obj)
+        } else {
+            return {quantity: 0, hashId: null}
+        }
     }
 }

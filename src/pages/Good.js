@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux"
-import {addToCart, fetchGood} from "../state/actions";
+import {checkCart, fetchGood} from "../state/actions";
 import {Loader} from "../components/Loader";
 
 const Good = ({goodId, good, loading, fetchGood, handleAddToCart}) => {
@@ -44,7 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    handleAddToCart: (hashId, userId) => dispatch(addToCart(hashId, userId)),
+    handleAddToCart: (hashId, userId) => dispatch(checkCart(hashId, userId)),
     fetchGood: goodId => dispatch(fetchGood(goodId))
 })
 
