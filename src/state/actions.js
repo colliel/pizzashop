@@ -1,4 +1,14 @@
-import {FETCH_GOODS, FETCH_GOOD, SHOW_LOADER, HIDE_LOADER, ADD_TO_CART, FETCH_CART, UPDATE_CART} from './types'
+import {
+    FETCH_GOODS,
+    FETCH_GOOD,
+    SHOW_LOADER,
+    HIDE_LOADER,
+    ADD_TO_CART,
+    FETCH_CART,
+    UPDATE_CART,
+    DELETE_FROM_CART,
+    CHANGE_QUANTITY
+} from './types'
 
 const url = process.env.REACT_APP_BD_URL
 
@@ -134,17 +144,29 @@ export const fetchCart = (userId) => {
     }
 }
 
-export const deleteFromCart = (userId, obj) => {
-    return () => {
-        if(Object.keys(obj).length !== 0) {
-            return fetch(`${url}/users/${userId}/cart/${obj.hashId}.json`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(() => obj)
-        } else {
-            return {quantity: 0, hashId: null}
-        }
+export const deleteFromCart = (userId, hashId) => {
+    return dispatch => {
+        return fetch(`${url}/users/${userId}/cart/${hashId}.json`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => dispatch({type: DELETE_FROM_CART, payload: hashId}))
+
+    }
+}
+
+export const changeQuantity = (userId, hashId, quantity, type) => {
+    return dispatch => {
+        quantity = (type === 'plus') ? quantity + 1 : (quantity === 1) ? quantity : quantity - 1
+        return fetch(`${url}/users/${userId}/cart/${hashId}.json`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                quantity
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => dispatch({type: CHANGE_QUANTITY, payload: {hashId, quantity, type}}))
     }
 }

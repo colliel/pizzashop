@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {fetchCart} from "../state/actions"
 import {Loader} from "../components/Loader";
-import {CartItem} from "../components/CartItem";
+import CartItem from "../components/CartItem";
 
 const Cart = ({cart, loading, fetchCart}) => {
     const userId = 1
@@ -17,9 +17,20 @@ const Cart = ({cart, loading, fetchCart}) => {
                 <>
                     <h1>Cart</h1>
                     {!cart.length ? <p>Your cart is empty</p> :
-                        <ul className="list-group">
-                            {cart.map(i => <CartItem key={i.id} item={i}/>)}
-                        </ul>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">🍕</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price $</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {cart.map(i => <CartItem key={i.id} item={i}/>)}
+                            </tbody>
+                        </table>
                     }
                 </>
             }

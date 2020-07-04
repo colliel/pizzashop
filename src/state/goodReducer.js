@@ -1,4 +1,12 @@
-import {FETCH_GOODS, FETCH_GOOD, ADD_TO_CART, FETCH_CART, UPDATE_CART} from "./types";
+import {
+    FETCH_GOODS,
+    FETCH_GOOD,
+    ADD_TO_CART,
+    FETCH_CART,
+    UPDATE_CART,
+    DELETE_FROM_CART,
+    CHANGE_QUANTITY
+} from "./types";
 
 const initialState = {
     goods: [],
@@ -25,6 +33,20 @@ export const goodReducer = (state = initialState, action) => {
             }
         case FETCH_CART:
             return state = {...state, cart: action.payload}
+        case DELETE_FROM_CART:
+            return state = {...state, cart: state.cart.filter(i => i.hashId !== action.payload)}
+        case CHANGE_QUANTITY:
+            const founded = state.cart.findIndex(i => i.hashId === action.payload.hashId)
+            const element = state.cart[founded]
+            if (action.payload.type === 'plus') {
+                element.quantity++
+            } else {
+                element.quantity--
+            }
+            const newArr = state.cart.filter(i => i.hashId !== action.payload.hashId)
+            newArr.push(element)
+            console.log(element)
+            return state = {...state, cart: newArr}
         default:
             return state
     }
