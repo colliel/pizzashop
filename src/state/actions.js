@@ -177,7 +177,7 @@ export const convertToEuro = (totalAmount) => {
         return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=USD`, {
             method: 'GET'
         }).then(response => response.json())
-            .then(data => totalAmount * data.rates.USD)
+            .then(data => Math.round(totalAmount * data.rates.USD))
             .then(amount => dispatch({type: EURO_AMOUNT, payload: amount}))
     }
 }

@@ -3,13 +3,15 @@ import {convertToEuro} from "../state/actions";
 import {connect} from "react-redux";
 
 const CartTotal = ({cart, convertToEuro, euroAmount}) => {
-    useEffect(() => {
-        convertToEuro(totalAmount)
-    }, [])
 
     const totalAmount = cart.reduce((sum, current) => {
         return sum + current.quantity * current.price
     }, 0)
+
+    useEffect(() => {
+        convertToEuro(totalAmount)
+        console.log(totalAmount)
+    }, [totalAmount])
 
     return(
         <tr>
@@ -18,9 +20,7 @@ const CartTotal = ({cart, convertToEuro, euroAmount}) => {
             <td>
             </td>
             <td colSpan="3">
-                Total amount: $ {totalAmount}
-                <br/>
-                € {euroAmount}
+                Total amount: $ {totalAmount} (€ {euroAmount})
             </td>
         </tr>
     )
