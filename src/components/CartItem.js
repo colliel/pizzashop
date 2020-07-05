@@ -13,12 +13,12 @@ const CartItem = ({item, handleDeleteGood, handlePlus, handleMinus}) => {
                 {item.quantity}
                 &nbsp;
                 <button
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-outline-warning btn-sm"
                     onClick={() => handlePlus(userId, item.hashId, item.quantity)}
                 >&uarr;</button>
                 &nbsp;
                 <button
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-outline-warning btn-sm"
                     onClick={() => handleMinus(userId, item.hashId, item.quantity)}
                 >&darr;</button>
             </td>

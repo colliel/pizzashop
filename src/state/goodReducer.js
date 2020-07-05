@@ -23,30 +23,25 @@ export const goodReducer = (state = initialState, action) => {
         case ADD_TO_CART:
             return state = {...state, cart: [...state.cart, action.payload]}
         case UPDATE_CART:
-            const found = state.cart.findIndex(i => i.hashId === action.payload.hashId)
+/*            const found = state.cart.findIndex(i => i.hashId === action.payload.hashId)
             const newObject = {name: state.cart[found].name, price: state.cart[found].price}
             const newCart = state.cart.filter(i => i.id !== action.payload.id)
             newCart.push({...action.payload, ...newObject})
             console.log(found)
             return state = {...state,
                 cart: newCart
-            }
+            }*/
+            return state = {...state,
+                cart: state.cart.map(i => (i.hashId === action.payload.hashId) ?
+                    {...i, quantity: action.payload.quantity} : i)}
         case FETCH_CART:
             return state = {...state, cart: action.payload}
         case DELETE_FROM_CART:
             return state = {...state, cart: state.cart.filter(i => i.hashId !== action.payload)}
         case CHANGE_QUANTITY:
-            const founded = state.cart.findIndex(i => i.hashId === action.payload.hashId)
-            const element = state.cart[founded]
-            if (action.payload.type === 'plus') {
-                element.quantity++
-            } else {
-                element.quantity--
-            }
-            const newArr = state.cart.filter(i => i.hashId !== action.payload.hashId)
-            newArr.push(element)
-            console.log(element)
-            return state = {...state, cart: newArr}
+            return state = {...state,
+                cart: state.cart.map(i => (i.hashId === action.payload.hashId) ?
+                    {...i, quantity: action.payload.quantity} : i)}
         default:
             return state
     }

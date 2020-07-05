@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {fetchCart} from "../state/actions"
 import {Loader} from "../components/Loader";
 import CartItem from "../components/CartItem";
+import CartTotal from "../components/CartTotal";
 
 const Cart = ({cart, loading, fetchCart}) => {
     const userId = 1
@@ -24,11 +25,12 @@ const Cart = ({cart, loading, fetchCart}) => {
                                 <th scope="col">Name</th>
                                 <th scope="col">Price $</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col"></th>
+                                <th scope="col"/>
                             </tr>
                             </thead>
                             <tbody>
                                 {cart.map(i => <CartItem key={i.id} item={i}/>)}
+                                <CartTotal cart={cart}/>
                             </tbody>
                         </table>
                     }

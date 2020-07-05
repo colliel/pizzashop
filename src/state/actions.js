@@ -115,7 +115,7 @@ export const updateCart = (userId, hashId, quantity, goodId) => {
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            dispatch({type: UPDATE_CART, payload: {id: goodId, quantity: quantity + 1, hashId}})
+            dispatch({type: UPDATE_CART, payload: {quantity: quantity + 1, hashId}})
         })
     }
 }
@@ -168,5 +168,17 @@ export const changeQuantity = (userId, hashId, quantity, type) => {
                 'Content-Type': 'application/json'
             }
         }).then(() => dispatch({type: CHANGE_QUANTITY, payload: {hashId, quantity, type}}))
+    }
+}
+
+export const convertToEuro = () => {
+    return dispatch => {
+        return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=EUR,USD`, {
+            method: 'GET',
+/*            headers: {
+                'Content-Type': 'application/json'
+            }*/
+        }).then(response => response.json())
+            .then(data => console.log(data))
     }
 }

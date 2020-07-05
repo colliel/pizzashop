@@ -7,6 +7,7 @@ import Good from "./pages/Good";
 import Cart from "./pages/Cart";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register";
+import {Order} from "./pages/Order";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                   <Route path={'/cart'} component={Cart}/>
                   <Route path={'/login'} component={Login}/>
                   <Route path={'/register'} component={Register}/>
+                  <Route path={'/order'} component={Order}/>
               </Switch>
           </div>
       </div>
