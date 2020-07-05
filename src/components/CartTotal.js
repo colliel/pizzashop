@@ -15,10 +15,8 @@ const CartTotal = ({cart, convertToEuro, euroAmount}) => {
 
     return(
         <tr>
-            <td>
-            </td>
-            <td>
-            </td>
+            <td/>
+            <td/>
             <td colSpan="3">
                 Total amount: $ {totalAmount} (€ {euroAmount})
             </td>

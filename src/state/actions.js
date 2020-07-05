@@ -8,12 +8,15 @@ import {
     UPDATE_CART,
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
-    EURO_AMOUNT
+    EURO_AMOUNT,
+    PROCESS_USER_DATA,
+    FETCH_ORDER
 } from './types'
+import Cookies from 'js-cookie'
 
 const url = process.env.REACT_APP_BD_URL
 
-const apiKey = 'AIzaSyCh3ScfjZQd23KVcyyAbmDdrBqo_bKLpEU'
+//const apiKey = 'AIzaSyCh3ScfjZQd23KVcyyAbmDdrBqo_bKLpEU'
 
 export const fetchGoods = () => {
     return (dispatch) => {
@@ -96,7 +99,6 @@ export const checkCart = (goodId, userId) => {
                 if (data.cart) {
                     const found = Object.keys(data.cart).find(item => data.cart[item].id === goodId)
                     if (found) {
-
                         return dispatch(updateCart(userId, found, data.cart[found].quantity, goodId))
                     } else return dispatch(fetchGoodData(goodId, userId))
                 } else return dispatch(fetchGoodData(goodId, userId))
@@ -179,5 +181,50 @@ export const convertToEuro = (totalAmount) => {
         }).then(response => response.json())
             .then(data => Math.round(totalAmount * data.rates.USD))
             .then(amount => dispatch({type: EURO_AMOUNT, payload: amount}))
+    }
+}
+
+export const getUserFromCookies = () => {
+    return async dispatch => {
+        //await dispatch({type: SHOW_LOADER})
+        const hashId = await Cookies.get('hashId')
+        if (hashId){
+            await dispatch({type: PROCESS_USER_DATA, payload: hashId})
+            //await dispatch({type: HIDE_LOADER})
+        } else {
+            const idToken = Math.random().toString(36).substr(2);
+            console.log(idToken)
+            const hashId = await dispatch(addRegisteredToDB(idToken))
+            await Cookies.set('hashId', hashId, {expires: 10})
+            await dispatch({type: PROCESS_USER_DATA, payload: hashId})
+            //await dispatch({type: HIDE_LOADER})
+        }
+    }
+}
+
+export const addRegisteredToDB = idToken => {
+    return () => {
+        return fetch(`${url}/users.json`, {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken
+            }),
+            headers: {
+                'Content_type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => data.name)
+    }
+}
+
+export const fetchOrder = newOrder => {
+    return dispatch => {
+        return fetch(`${url}/orders.json`, {
+            method: 'POST',
+            body: JSON.stringify({newOrder}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => dispatch({type: FETCH_ORDER, payload: newOrder}))
     }
 }
