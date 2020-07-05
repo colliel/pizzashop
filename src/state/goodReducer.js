@@ -5,13 +5,15 @@ import {
     FETCH_CART,
     UPDATE_CART,
     DELETE_FROM_CART,
-    CHANGE_QUANTITY
+    CHANGE_QUANTITY,
+    EURO_AMOUNT
 } from "./types";
 
 const initialState = {
     goods: [],
     good: {},
-    cart: []
+    cart: [],
+    euroAmount: null
 }
 
 export const goodReducer = (state = initialState, action) => {
@@ -42,6 +44,8 @@ export const goodReducer = (state = initialState, action) => {
             return state = {...state,
                 cart: state.cart.map(i => (i.hashId === action.payload.hashId) ?
                     {...i, quantity: action.payload.quantity} : i)}
+        case EURO_AMOUNT:
+            return state = {...state, euroAmount: action.payload}
         default:
             return state
     }

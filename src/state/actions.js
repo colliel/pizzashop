@@ -7,7 +7,8 @@ import {
     FETCH_CART,
     UPDATE_CART,
     DELETE_FROM_CART,
-    CHANGE_QUANTITY
+    CHANGE_QUANTITY,
+    EURO_AMOUNT
 } from './types'
 
 const url = process.env.REACT_APP_BD_URL
@@ -171,14 +172,12 @@ export const changeQuantity = (userId, hashId, quantity, type) => {
     }
 }
 
-export const convertToEuro = () => {
+export const convertToEuro = (totalAmount) => {
     return dispatch => {
-        return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=EUR,USD`, {
-            method: 'GET',
-/*            headers: {
-                'Content-Type': 'application/json'
-            }*/
+        return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=USD`, {
+            method: 'GET'
         }).then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => totalAmount * data.rates.USD)
+            .then(amount => dispatch({type: EURO_AMOUNT, payload: amount}))
     }
 }
