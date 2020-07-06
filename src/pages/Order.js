@@ -32,7 +32,7 @@ const Order = (props) => {
     }
 
     return (
-        <div className="col-6">
+        <div className="col-6 mt-3">
             <form className="form-group" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="InputName">Your name</label>
