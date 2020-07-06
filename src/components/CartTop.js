@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux"
-import {fetchCart} from "../state/actions";
+import {fetchCart, getUserFromCookies} from "../state/actions";
 
-const CartTop = ({cart, fetchCart}) => {
-    const userId = 1
+const CartTop = ({userId, cart, fetchCart, getUserFromCookies}) => {
 
     useEffect(() => {
-        fetchCart(userId)
-    }, [])
+        getUserFromCookies().then(fetchCart(userId))
+        console.log(userId)
+    }, [userId])
 
     return(
         <div className="cart col-3">
@@ -29,12 +29,14 @@ const CartTop = ({cart, fetchCart}) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.goods.cart
+        cart: state.goods.cart,
+        userId: state.app.user
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    getUserFromCookies: () => dispatch(getUserFromCookies())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartTop)

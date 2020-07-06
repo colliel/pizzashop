@@ -6,14 +6,16 @@ import {
     UPDATE_CART,
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
-    EURO_AMOUNT
+    EURO_AMOUNT,
+    FETCH_ORDER
 } from "./types";
 
 const initialState = {
     goods: [],
     good: {},
     cart: [],
-    euroAmount: null
+    euroAmount: null,
+    order: {}
 }
 
 export const goodReducer = (state = initialState, action) => {
@@ -25,14 +27,6 @@ export const goodReducer = (state = initialState, action) => {
         case ADD_TO_CART:
             return state = {...state, cart: [...state.cart, action.payload]}
         case UPDATE_CART:
-/*            const found = state.cart.findIndex(i => i.hashId === action.payload.hashId)
-            const newObject = {name: state.cart[found].name, price: state.cart[found].price}
-            const newCart = state.cart.filter(i => i.id !== action.payload.id)
-            newCart.push({...action.payload, ...newObject})
-            console.log(found)
-            return state = {...state,
-                cart: newCart
-            }*/
             return state = {...state,
                 cart: state.cart.map(i => (i.hashId === action.payload.hashId) ?
                     {...i, quantity: action.payload.quantity} : i)}
@@ -46,6 +40,8 @@ export const goodReducer = (state = initialState, action) => {
                     {...i, quantity: action.payload.quantity} : i)}
         case EURO_AMOUNT:
             return state = {...state, euroAmount: action.payload}
+        case FETCH_ORDER:
+            return {...state, order: action.payload}
         default:
             return state
     }
