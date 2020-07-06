@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
 import {fetchOrder, getUserFromCookies} from "../state/actions"
+import {Error} from "../components/Error";
 
 const Order = (props) => {
     const [input, setInput] = useState({name: '', address: ''})
+    const [error, setError] = useState('')
 
     const onInputChange = event => {
         event.persist()
@@ -15,13 +17,18 @@ const Order = (props) => {
     const handleSubmit = event => {
         event.preventDefault()
         const newOrder = {
+            time: Date.now().toString(),
             name: input.name,
             address: input.address,
             cart: props.cart
         }
-        props.getUserFromCookies()
-            .then(userId => props.fetchOrder(newOrder, userId))
-            .then(() => props.history.push('/myOrders/'))
+        if (newOrder.name === '' || newOrder.address === '') {
+            setError('You must fill in all fields')
+        } else {
+            props.getUserFromCookies()
+                .then(userId => props.fetchOrder(newOrder, userId))
+                .then(() => props.history.push('/myOrders/'))
+        }
     }
 
     return (
@@ -50,7 +57,7 @@ const Order = (props) => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Order</button>
-                {props.errorLogin && <p className="error">Error: {props.errorLogin}</p>}
+                {!!error && <Error error={error}/>}
             </form>
         </div>
     )

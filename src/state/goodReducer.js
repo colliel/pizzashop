@@ -16,7 +16,7 @@ const initialState = {
     goods: [],
     good: {},
     cart: [],
-    euroAmount: null,
+    euroAmount: [],
     order: {},
     orders: []
 }

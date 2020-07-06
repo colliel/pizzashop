@@ -176,13 +176,21 @@ export const changeQuantity = (userId, hashId, quantity, type) => {
     }
 }
 
-export const convertToEuro = (totalAmount) => {
+export const convertToEuro = (totalAmount, deliveryCost, totalAmountWithDelivery) => {
     return dispatch => {
+        console.log(totalAmount)
         return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=USD`, {
             method: 'GET'
         }).then(response => response.json())
-            .then(data => Math.round(totalAmount * data.rates.USD))
-            .then(amount => dispatch({type: EURO_AMOUNT, payload: amount}))
+            .then(data => {
+                return [Math.round(totalAmount * data.rates.USD),
+                    Math.round(deliveryCost * data.rates.USD),
+                    Math.round(totalAmountWithDelivery * data.rates.USD)]
+            })
+            .then(arr => {
+                console.log(arr)
+                return dispatch({type: EURO_AMOUNT, payload: arr})
+            })
     }
 }
 
