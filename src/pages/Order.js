@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {fetchOrder} from "../state/actions"
+import {fetchOrder, getUserFromCookies} from "../state/actions"
 
 const Order = (props) => {
     const [input, setInput] = useState({name: '', address: ''})
@@ -19,12 +19,14 @@ const Order = (props) => {
             address: input.address,
             cart: props.cart
         }
-        props.fetchOrder(newOrder)
+        props.getUserFromCookies()
+            .then(userId => props.fetchOrder(newOrder, userId))
+            .then(() => props.history.push('/myOrders/'))
     }
 
     return (
-        <>
-            <form className="form-signin" onSubmit={handleSubmit}>
+        <div className="col-6">
+            <form className="form-group" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="InputName">Your name</label>
                     <input
@@ -50,7 +52,7 @@ const Order = (props) => {
                 <button type="submit" className="btn btn-primary btn-block">Order</button>
                 {props.errorLogin && <p className="error">Error: {props.errorLogin}</p>}
             </form>
-        </>
+        </div>
     )
 }
 
@@ -61,7 +63,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    fetchOrder
+    fetchOrder, getUserFromCookies
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order)

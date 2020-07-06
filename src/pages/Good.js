@@ -1,14 +1,13 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux"
-import {checkCart, fetchGood} from "../state/actions";
+import {checkCart, fetchGood, getUserFromCookies} from "../state/actions";
 import {Loader} from "../components/Loader";
 
-const Good = ({goodId, good, loading, fetchGood, handleAddToCart}) => {
+const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCookies}) => {
     useEffect(() => {
         fetchGood(goodId)
     }, [])
 
-    const userId = 1
     return(
         <div className="single_top row col-9">
             {loading ? <Loader/> :
@@ -23,7 +22,7 @@ const Good = ({goodId, good, loading, fetchGood, handleAddToCart}) => {
                         <div className="col-9">
                             <button
                                 className="now-get get-cart"
-                                onClick={() => handleAddToCart(good.hashId, userId)}
+                                onClick={() => getUserFromCookies().then(userId => handleAddToCart(good.hashId, userId))}
                             >ADD TO CART</button>
                         </div>
                         </div>
@@ -45,7 +44,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
     handleAddToCart: (hashId, userId) => dispatch(checkCart(hashId, userId)),
-    fetchGood: goodId => dispatch(fetchGood(goodId))
+    fetchGood: goodId => dispatch(fetchGood(goodId)),
+    getUserFromCookies: () => dispatch(getUserFromCookies())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Good)

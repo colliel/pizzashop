@@ -7,7 +7,9 @@ import {
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
     EURO_AMOUNT,
-    FETCH_ORDER
+    CLEAR_CART,
+    FETCH_ORDER,
+    FETCH_ORDERS
 } from "./types";
 
 const initialState = {
@@ -15,7 +17,8 @@ const initialState = {
     good: {},
     cart: [],
     euroAmount: null,
-    order: {}
+    order: {},
+    orders: []
 }
 
 export const goodReducer = (state = initialState, action) => {
@@ -40,8 +43,12 @@ export const goodReducer = (state = initialState, action) => {
                     {...i, quantity: action.payload.quantity} : i)}
         case EURO_AMOUNT:
             return state = {...state, euroAmount: action.payload}
+        case CLEAR_CART:
+            return  state = {...state, cart: []}
         case FETCH_ORDER:
-            return {...state, order: action.payload}
+            return state = {...state, order: action.payload}
+        case FETCH_ORDERS:
+            return state = {...state, orders: action.payload}
         default:
             return state
     }

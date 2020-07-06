@@ -1,19 +1,19 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {fetchCart} from "../state/actions"
+import {fetchCart, getUserFromCookies} from "../state/actions"
 import {Loader} from "../components/Loader";
 import CartItem from "../components/CartItem";
 import CartTotal from "../components/CartTotal";
+import {NavLink} from "react-router-dom";
 
-const Cart = ({cart, loading, fetchCart}) => {
-    const userId = 1
+const Cart = ({cart, loading, fetchCart, getUserFromCookies}) => {
 
     useEffect(() => {
-        fetchCart(userId)
+        getUserFromCookies().then(userId => fetchCart(userId))
     }, [])
 
     return(
-        <div className="col-9">
+        <div className="col-9 mt-3">
             {loading ? <Loader/> :
                 <>
                     <h1>Cart</h1>
@@ -31,6 +31,7 @@ const Cart = ({cart, loading, fetchCart}) => {
                             <tbody>
                                 {cart.map(i => <CartItem key={i.id} item={i}/>)}
                                 <CartTotal cart={cart}/>
+
                             </tbody>
                         </table>
                     }
@@ -48,7 +49,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    getUserFromCookies: () => dispatch(getUserFromCookies())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

@@ -12,13 +12,8 @@ export const Navbar = () => {
                             <NavLink to="/">Pizza Shop</NavLink>
                         </div>
                     </div>
-                    <div className="header-bottom-right col-6 row">
-                        <div className="account col-5"><NavLink to="/login"><span> </span>YOUR ACCOUNT</NavLink></div>
-                        <ul className="login col-4">
-                            <li><NavLink to="/login"><span> </span>LOGIN</NavLink></li>
-                             &nbsp;|&nbsp;
-                            <li><NavLink to="/register">SIGNUP</NavLink></li>
-                        </ul>
+                    <div className="header-bottom-right col-6 row justify-content-end">
+                        <div className="account col-5"><NavLink to="/myOrders"><span> </span>YOUR ACCOUNT</NavLink></div>
                         <CartTop/>
                     </div>
             </div>

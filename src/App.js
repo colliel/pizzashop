@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import {Login} from "./pages/Login";
 import {Register} from "./pages/Register";
 import Order from "./pages/Order";
+import MyOrders from "./pages/MyOrders"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                   <Route path={'/login'} component={Login}/>
                   <Route path={'/register'} component={Register}/>
                   <Route path={'/order'} component={Order}/>
+                  <Route path={'/myOrders'} component={MyOrders}/>
               </Switch>
           </div>
       </div>

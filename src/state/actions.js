@@ -9,8 +9,10 @@ import {
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
     EURO_AMOUNT,
+    CLEAR_CART,
     PROCESS_USER_DATA,
-    FETCH_ORDER
+    FETCH_ORDER,
+    FETCH_ORDERS
 } from './types'
 import Cookies from 'js-cookie'
 
@@ -189,14 +191,16 @@ export const getUserFromCookies = () => {
         //await dispatch({type: SHOW_LOADER})
         const hashId = await Cookies.get('hashId')
         if (hashId){
-            await dispatch({type: PROCESS_USER_DATA, payload: hashId})
+            return hashId
+            //await dispatch({type: PROCESS_USER_DATA, payload: hashId})
             //await dispatch({type: HIDE_LOADER})
         } else {
             const idToken = Math.random().toString(36).substr(2);
             console.log(idToken)
             const hashId = await dispatch(addRegisteredToDB(idToken))
             await Cookies.set('hashId', hashId, {expires: 10})
-            await dispatch({type: PROCESS_USER_DATA, payload: hashId})
+            return hashId
+            //await dispatch({type: PROCESS_USER_DATA, payload: hashId})
             //await dispatch({type: HIDE_LOADER})
         }
     }
@@ -217,14 +221,47 @@ export const addRegisteredToDB = idToken => {
     }
 }
 
-export const fetchOrder = newOrder => {
+export const fetchOrder = (newOrder, userId) => {
     return dispatch => {
-        return fetch(`${url}/orders.json`, {
+        return fetch(`${url}/users/${userId}/orders.json`, {
             method: 'POST',
-            body: JSON.stringify({newOrder}),
+            body: JSON.stringify({...newOrder}),
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(() => dispatch({type: FETCH_ORDER, payload: newOrder}))
+            .then(() => dispatch(clearCart(userId)))
+    }
+}
+
+export const clearCart = userId => {
+    return dispatch => {
+        return fetch(`${url}/users/${userId}/cart.json`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => dispatch({type: CLEAR_CART}))
+    }
+}
+
+export const fetchOrders = userId => {
+    return dispatch => {
+        dispatch({type: SHOW_LOADER})
+        return fetch(`${url}/users/${userId}.json`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => {
+                if (data.orders) {
+                    return dispatch({type: FETCH_ORDERS, payload: Object
+                            .keys(data.orders)
+                            .map(i => {
+                                return {...data.orders[i], id: i}
+                            })})
+                }
+            }).then(() => dispatch({type: HIDE_LOADER}))
     }
 }

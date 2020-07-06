@@ -1,10 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {checkCart} from "../state/actions";
+import {checkCart, getUserFromCookies} from "../state/actions";
 
-const Item = ({item, cart, handleAddToCart}) => {
-    const userId = 1
+const Item = ({item, cart, handleAddToCart, getUserFromCookies}) => {
     return(
         <div className="col mb-5">
             <NavLink to={`/good/${item.hashId}`}><img className="chain" src={`./pizza/${item.name}.jpg`} alt={item.name}/></NavLink>
@@ -17,9 +16,9 @@ const Item = ({item, cart, handleAddToCart}) => {
                     <div className="col-8">
                         <button
                             className="now-get get-cart"
-                            onClick={() => handleAddToCart(item.hashId, userId)}
+                            onClick={() => getUserFromCookies().then(userId => handleAddToCart(item.hashId, userId))}
                         >ADD TO CART</button>
-                        <span></span>
+                        <span/>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    handleAddToCart: (hashId, userId) => dispatch(checkCart(hashId, userId))
+    handleAddToCart: (hashId, userId) => dispatch(checkCart(hashId, userId)),
+    getUserFromCookies: () => dispatch(getUserFromCookies())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item)
