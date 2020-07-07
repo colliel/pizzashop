@@ -10,13 +10,13 @@ const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCoo
     }, [])
 
     return(
-        <div className="single_top row col">
+        <div className="single_top col">
             {loading ? <Loader/> :
-                <>
-                    <div className="images_3_of_2 col">
+                <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2">
+                    <div className=" col">
                         <img className="chain" src={`../pizza/${good.name}.jpg`} alt={good.name}/>
                     </div>
-                    <div className="desc1 span_3_of_2 col">
+                    <div className=" col">
                         <h4>{good.name}</h4>
                         <div className="cart-b row justify-content-around align-items-center">
                         <div className="left-n col-3">$&nbsp;{good.price}</div>
@@ -29,7 +29,7 @@ const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCoo
                         </div>
                         <p>{good.description}</p>
                     </div>
-                </>
+                </div>
             }
         </div>
     )

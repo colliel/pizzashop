@@ -26,7 +26,7 @@ const CartItem = ({item, handleDeleteGood, handlePlus, handleMinus, getUserFromC
                 <button
                 className="btn btn-danger"
                 onClick={() => getUserFromCookies().then(userId => handleDeleteGood(userId, item.hashId))}
-            >Delete</button>
+            >x</button>
             </td>
         </tr>
     )

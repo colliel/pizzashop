@@ -17,7 +17,7 @@ const Item = ({item, cart, handleAddToCart, getUserFromCookies}) => {
                         <button
                             className="now-get get-cart"
                             onClick={() => getUserFromCookies().then(userId => handleAddToCart(item.hashId, userId))}
-                        >ADD TO CART</button>
+                        >ADD&nbsp;TO&nbsp;CART</button>
                         <span/>
                     </div>
                 </div>

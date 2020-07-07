@@ -19,8 +19,8 @@ const CartTotal = ({cart, calculateTotalAmount, totalAmount}) => {
                 <p>Total amount with delivery: $ {totalAmount[2]} (€ {totalAmount[5]})</p>
             </td>
             <td/>
-            <td/>
-            <td>
+
+            <td colSpan="2">
                 <NavLink to="/Order" className="btn btn-primary">Order</NavLink>
             </td>
         </tr>
