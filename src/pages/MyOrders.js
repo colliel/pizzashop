@@ -7,6 +7,7 @@ import {MyOrdersItem} from "../components/MyOrdersItem"
 const MyOrders = ({loading, orders, fetchOrders, getUserFromCookies}) => {
     useEffect(() => {
         getUserFromCookies().then(userId => fetchOrders(userId))
+        // eslint-disable-next-line
     }, [])
     return(
         <div className="col-9 mt-3">
@@ -15,7 +16,7 @@ const MyOrders = ({loading, orders, fetchOrders, getUserFromCookies}) => {
                     <h1>My Orders</h1>
                     {!!orders.length ?
                         <ul className="list-group">
-                            {orders.map(i => <MyOrdersItem key={i.id} order={i}/>)}
+                            {orders.map(i => <MyOrdersItem key={i.time} order={i}/>)}
                         </ul>
                         : <p>You have no orders</p>
                     }

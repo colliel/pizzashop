@@ -7,7 +7,7 @@ const CartTop = ({cart, fetchCart, getUserFromCookies}) => {
 
     useEffect(() => {
         getUserFromCookies().then(userId => fetchCart(userId))
-
+        // eslint-disable-next-line
     }, [])
 
     return(
@@ -29,8 +29,7 @@ const CartTop = ({cart, fetchCart, getUserFromCookies}) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.goods.cart,
-        //userId: state.app.user
+        cart: state.goods.cart
     }
 }
 

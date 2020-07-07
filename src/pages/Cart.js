@@ -4,12 +4,12 @@ import {fetchCart, getUserFromCookies} from "../state/actions"
 import {Loader} from "../components/Loader";
 import CartItem from "../components/CartItem";
 import CartTotal from "../components/CartTotal";
-import {NavLink} from "react-router-dom";
 
 const Cart = ({cart, loading, fetchCart, getUserFromCookies}) => {
 
     useEffect(() => {
         getUserFromCookies().then(userId => fetchCart(userId))
+        // eslint-disable-next-line
     }, [])
 
     return(
@@ -21,7 +21,7 @@ const Cart = ({cart, loading, fetchCart, getUserFromCookies}) => {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th scope="col">🍕</th>
+                                <th scope="col"><span role="img" aria-label="pizza">🍕</span></th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price $</th>
                                 <th scope="col">Quantity</th>

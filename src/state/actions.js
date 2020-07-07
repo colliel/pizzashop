@@ -107,7 +107,6 @@ export const checkCart = (goodId, userId) => {
 
 export const updateCart = (userId, hashId, quantity, goodId) => {
     return dispatch => {
-        console.log(quantity)
         return fetch(`${url}/users/${userId}/cart/${hashId}.json`,{
             method: 'PATCH',
             body: JSON.stringify({
@@ -133,7 +132,6 @@ export const fetchCart = (userId) => {
         }).then(response => response.json())
             .then(data => {
                 if (data.cart) {
-                    console.log(data)
                     return Object.keys(data.cart).map(item => {
                         return {...data.cart[item], hashId: item}
                     })
@@ -180,19 +178,19 @@ export const calculateTotalAmount = (cart) => {
             return sum + current.quantity * current.price
         }, 0)
         const totalAmountWithDelivery = totalAmount + deliveryCost
-        return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=USD`, {
+        return fetch(`https://cors-anywhere.herokuapp.com/https://currate.ru/api/?get=rates&pairs=EURUSD&key=17f005c683055051eb5df2855d055f7f`, {
             method: 'GET'
         }).then(response => response.json())
             .then(data => {
+                const rate = data.data.EURUSD
                 return [totalAmount,
                     deliveryCost,
                     totalAmountWithDelivery,
-                    Math.round(totalAmount * data.rates.USD),
-                    Math.round(deliveryCost * data.rates.USD),
-                    Math.round(totalAmountWithDelivery * data.rates.USD)]
+                    Math.round(totalAmount * rate),
+                    Math.round(deliveryCost * rate),
+                    Math.round(totalAmountWithDelivery * rate)]
             })
             .then(arr => {
-                console.log(arr)
                 return dispatch({type: TOTAL_AMOUNT, payload: arr})
             })
     }
@@ -205,7 +203,6 @@ export const getUserFromCookies = () => {
             return hashId
         } else {
             const idToken = Math.random().toString(36).substr(2);
-            console.log(idToken)
             const hashId = await dispatch(addRegisteredToDB(idToken))
             await Cookies.set('hashId', hashId, {expires: 10})
             return hashId

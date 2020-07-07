@@ -6,6 +6,7 @@ import {Loader} from "../components/Loader";
 const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCookies}) => {
     useEffect(() => {
         fetchGood(goodId)
+        // eslint-disable-next-line
     }, [])
 
     return(
@@ -18,7 +19,7 @@ const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCoo
                     <div className="desc1 span_3_of_2 col">
                         <h4>{good.name}</h4>
                         <div className="cart-b row justify-content-around align-items-center">
-                        <div className="left-n col-3">$ {good.price}</div>
+                        <div className="left-n col-3">$&nbsp;{good.price}</div>
                         <div className="col-9">
                             <button
                                 className="now-get get-cart"

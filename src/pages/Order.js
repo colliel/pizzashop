@@ -26,6 +26,7 @@ const Order = (props) => {
         if (newOrder.name === '' || newOrder.address === '') {
             setError('You must fill in all fields')
         } else {
+            setError('')
             props.getUserFromCookies()
                 .then(userId => props.fetchOrder(newOrder, userId))
                 .then(() => props.history.push('/myOrders/'))

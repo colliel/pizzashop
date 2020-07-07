@@ -7,6 +7,7 @@ const CartTotal = ({cart, calculateTotalAmount, totalAmount}) => {
 
     useEffect(() => {
         calculateTotalAmount(cart)
+        // eslint-disable-next-line
     }, [cart])
 
     return(
