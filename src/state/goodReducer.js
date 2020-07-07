@@ -6,7 +6,7 @@ import {
     UPDATE_CART,
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
-    EURO_AMOUNT,
+    TOTAL_AMOUNT,
     CLEAR_CART,
     FETCH_ORDER,
     FETCH_ORDERS
@@ -16,7 +16,7 @@ const initialState = {
     goods: [],
     good: {},
     cart: [],
-    euroAmount: [],
+    totalAmount: [],
     order: {},
     orders: []
 }
@@ -41,8 +41,8 @@ export const goodReducer = (state = initialState, action) => {
             return state = {...state,
                 cart: state.cart.map(i => (i.hashId === action.payload.hashId) ?
                     {...i, quantity: action.payload.quantity} : i)}
-        case EURO_AMOUNT:
-            return state = {...state, euroAmount: action.payload}
+        case TOTAL_AMOUNT:
+            return state = {...state, totalAmount: action.payload}
         case CLEAR_CART:
             return  state = {...state, cart: []}
         case FETCH_ORDER:

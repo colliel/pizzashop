@@ -20,7 +20,8 @@ const Order = (props) => {
             time: Date.now().toString(),
             name: input.name,
             address: input.address,
-            cart: props.cart
+            cart: props.cart,
+            totalAmount: props.totalAmount
         }
         if (newOrder.name === '' || newOrder.address === '') {
             setError('You must fill in all fields')
@@ -65,7 +66,8 @@ const Order = (props) => {
 
 const mapStateToProps = state => {
     return {
-        cart: state.goods.cart
+        cart: state.goods.cart,
+        totalAmount: state.goods.totalAmount
     }
 }
 

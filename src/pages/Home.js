@@ -12,7 +12,7 @@ const Home = ({loading, goods, dispatch}) => {
     }, [])
 
     return(
-        <div className="col-9">
+        <div className="col">
             {loading ? <Loader/> :
                 <div className="row row-cols-3">
                      <Goods goods={goods}/>

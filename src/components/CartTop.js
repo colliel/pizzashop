@@ -11,7 +11,7 @@ const CartTop = ({cart, fetchCart, getUserFromCookies}) => {
     }, [])
 
     return(
-        <div className="cart col-3">
+        <div className="cart col-4">
             <NavLink to="/cart">
                 <span> </span>
                 CART

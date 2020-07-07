@@ -9,7 +9,7 @@ const Good = ({goodId, good, loading, fetchGood, handleAddToCart, getUserFromCoo
     }, [])
 
     return(
-        <div className="single_top row col-9">
+        <div className="single_top row col">
             {loading ? <Loader/> :
                 <>
                     <div className="images_3_of_2 col">

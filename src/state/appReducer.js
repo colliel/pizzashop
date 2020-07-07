@@ -1,4 +1,4 @@
-import {SHOW_LOADER, HIDE_LOADER, PROCESS_USER_DATA} from "./types"
+import {SHOW_LOADER, HIDE_LOADER} from "./types"
 
 const initialState = {
     loading: false,
@@ -11,8 +11,6 @@ export const appReducer = (state = initialState, action) => {
             return state = {...state, loading: true}
         case HIDE_LOADER:
             return state = {...state, loading: false}
-        case PROCESS_USER_DATA:
-            return state = {...state, user: action.payload}
         default:
             return state
     }

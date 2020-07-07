@@ -8,17 +8,14 @@ import {
     UPDATE_CART,
     DELETE_FROM_CART,
     CHANGE_QUANTITY,
-    EURO_AMOUNT,
+    TOTAL_AMOUNT,
     CLEAR_CART,
-    PROCESS_USER_DATA,
     FETCH_ORDER,
     FETCH_ORDERS
 } from './types'
 import Cookies from 'js-cookie'
 
 const url = process.env.REACT_APP_BD_URL
-
-//const apiKey = 'AIzaSyCh3ScfjZQd23KVcyyAbmDdrBqo_bKLpEU'
 
 export const fetchGoods = () => {
     return (dispatch) => {
@@ -176,40 +173,42 @@ export const changeQuantity = (userId, hashId, quantity, type) => {
     }
 }
 
-export const convertToEuro = (totalAmount, deliveryCost, totalAmountWithDelivery) => {
+export const calculateTotalAmount = (cart) => {
     return dispatch => {
-        console.log(totalAmount)
+        const deliveryCost = 8
+        const totalAmount = cart.reduce((sum, current) => {
+            return sum + current.quantity * current.price
+        }, 0)
+        const totalAmountWithDelivery = totalAmount + deliveryCost
         return fetch(`http://data.fixer.io/api/latest?access_key=4685ea0ed311231bb583550d38ff0dab&symbols=USD`, {
             method: 'GET'
         }).then(response => response.json())
             .then(data => {
-                return [Math.round(totalAmount * data.rates.USD),
+                return [totalAmount,
+                    deliveryCost,
+                    totalAmountWithDelivery,
+                    Math.round(totalAmount * data.rates.USD),
                     Math.round(deliveryCost * data.rates.USD),
                     Math.round(totalAmountWithDelivery * data.rates.USD)]
             })
             .then(arr => {
                 console.log(arr)
-                return dispatch({type: EURO_AMOUNT, payload: arr})
+                return dispatch({type: TOTAL_AMOUNT, payload: arr})
             })
     }
 }
 
 export const getUserFromCookies = () => {
     return async dispatch => {
-        //await dispatch({type: SHOW_LOADER})
         const hashId = await Cookies.get('hashId')
         if (hashId){
             return hashId
-            //await dispatch({type: PROCESS_USER_DATA, payload: hashId})
-            //await dispatch({type: HIDE_LOADER})
         } else {
             const idToken = Math.random().toString(36).substr(2);
             console.log(idToken)
             const hashId = await dispatch(addRegisteredToDB(idToken))
             await Cookies.set('hashId', hashId, {expires: 10})
             return hashId
-            //await dispatch({type: PROCESS_USER_DATA, payload: hashId})
-            //await dispatch({type: HIDE_LOADER})
         }
     }
 }

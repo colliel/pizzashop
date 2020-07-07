@@ -1,29 +1,21 @@
 import React, {useEffect} from "react";
-import {convertToEuro} from "../state/actions";
+import {calculateTotalAmount} from "../state/actions";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
 
-const CartTotal = ({cart, convertToEuro, euroAmount}) => {
-    const deliveryCost = 8
-
-    const totalAmount = cart.reduce((sum, current) => {
-        return sum + current.quantity * current.price
-    }, 0)
-
-    const totalAmountWithDelivery = totalAmount + deliveryCost
+const CartTotal = ({cart, calculateTotalAmount, totalAmount}) => {
 
     useEffect(() => {
-        convertToEuro(totalAmount, deliveryCost, totalAmountWithDelivery)
-        console.log(totalAmount)
-    }, [totalAmount])
+        calculateTotalAmount(cart)
+    }, [cart])
 
     return(
         <tr>
 
             <td colSpan="2">
-                <p>Total amount: $ {totalAmount} (€ {euroAmount[0]})</p>
-                <p>Delivery cost: $ {deliveryCost} (€ {euroAmount[1]})</p>
-                <p>Total amount with delivery: $ {totalAmountWithDelivery} (€ {euroAmount[2]})</p>
+                <p>Total amount: $ {totalAmount[0]} (€ {totalAmount[3]})</p>
+                <p>Delivery cost: $ {totalAmount[1]} (€ {totalAmount[4]})</p>
+                <p>Total amount with delivery: $ {totalAmount[2]} (€ {totalAmount[5]})</p>
             </td>
             <td/>
             <td/>
@@ -36,12 +28,12 @@ const CartTotal = ({cart, convertToEuro, euroAmount}) => {
 
 const mapStateToProps = state => {
     return {
-        euroAmount: state.goods.euroAmount
+        totalAmount: state.goods.totalAmount
     }
 }
 
 const mapDispatchToProps = {
-    convertToEuro
+    calculateTotalAmount
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartTotal)

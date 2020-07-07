@@ -13,7 +13,7 @@ const Cart = ({cart, loading, fetchCart, getUserFromCookies}) => {
     }, [])
 
     return(
-        <div className="col-9 mt-3">
+        <div className="col mt-3">
             {loading ? <Loader/> :
                 <>
                     <h1>Cart</h1>
